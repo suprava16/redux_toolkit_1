@@ -1,18 +1,25 @@
 import React from 'react'
-import {useDispatch,useSelector} from "react-redux"
-import {addEmail,addPassword} from "../store/loginSlice"
+import { useDispatch, useSelector } from "react-redux"
+import { addEmail, addPassword, loginDetails } from "../store/loginSlice"
 function Login() {
 
-const dispatch=useDispatch()
+  const dispatch = useDispatch()
 
-  const handleEmail=(event)=>{
+  const myData = useSelector((store) => store.login)
+
+  console.log(myData)
+
+  const handleEmail = (event) => {
     dispatch(addEmail(event.target.value))
   }
 
-  const handlePassword=(event)=>{
+  const handlePassword = (event) => {
     dispatch(addPassword(event.target.value))
   }
 
+  const handleClick = () => {
+    dispatch(loginDetails(myData.email, myData.password))
+  }
   return (
     <div>
       <input
@@ -25,7 +32,7 @@ const dispatch=useDispatch()
         placeholder='enter password'
         onChange={handlePassword}
       />
-      {/* <button onClick={handleClick}>Login</button> */}
+      <button onClick={handleClick}>Login</button>
     </div>
   )
 }
